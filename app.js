@@ -12,6 +12,6 @@ io.on('connection', function(socket) {
    });
 });
 
-server.listen(4004, function() {
+server.listen(process.env.PORT || 4004, function() {
    console.log('listening');
 });
