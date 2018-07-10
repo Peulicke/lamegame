@@ -42,11 +42,16 @@ function Player(socket, index){
 var players = [];
 
 function update(){
+    var data = [];
     for(var i in players){
         players[i].vx += players[i].ax;
         players[i].vy += players[i].ay;
         players[i].x += players[i].vx;
         players[i].y += players[i].vy;
+        data.push({
+            "x": players[i].x,
+            "y": players[i].y
+        });
     }
     io.sockets.emit("game", players);
 }
