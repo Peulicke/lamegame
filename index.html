@@ -28,7 +28,7 @@
             ctx.lineWidth = scale*0.5;
             ctx.beginPath();
             ctx.moveTo((players[i].x+0.5)*scale, (players[i].y+0.5)*scale);
-            ctx.lineTo((players[i].x+players[i].vx+0.5)*scale, (players[i].y+players[i].vy+0.5)*scale);
+            ctx.lineTo((players[i].x+players[i].vx+ax+0.5)*scale, (players[i].y+players[i].vy+ay+0.5)*scale);
             ctx.stroke();
         }
         ctx.fillStyle = "green";
@@ -40,6 +40,8 @@
     socket.on("game", function(data){
         players = data.data;
         index = data.index;
+        ax = 0;
+        ay = 0;
     });
     
     document.addEventListener('keydown', function(event){
