@@ -10,13 +10,22 @@
     var ctx = canvas.getContext("2d");
     
     var scale = 5;
-    var positions = [];
+    var players = [];
     
     setInterval(draw);
     function draw(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for(var i in positions){
-            ctx.fillRect(positions[i].x*scale, positions[i].y*scale, scale, scale);
+        for(var i in players){
+            ctx.fillStyle = "black";
+            ctx.fillRect(players[i].x*scale, players[i].y*scale, scale, scale);
+            ctx.fillStyle = "blue";
+            ctx.fillRect((players[i].x+players[i].vx)*scale, (players[i].y+players[i].vy)*scale, scale, scale);
+            ctx.strokeStyle = "blue";
+            ctx.lineWidth = scale*0.5;
+            ctx.beginPath();
+            ctx.moveTo(players[i].x*scale, players[i].y*scale);
+            ctx.lineTo((players[i].x+players[i].vx)*scale, (players[i].y+players[i].vy)*scale);
+            ctx.stroke();
         }
     }
     
@@ -24,7 +33,7 @@
     var socket = io.connect();
     //socket.emit('clientEvent', 'Sent an event from the client!');
     socket.on("game", function(data){
-        positions = data;
+        players = data;
     });
     
 </script>

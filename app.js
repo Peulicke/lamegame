@@ -50,7 +50,9 @@ function update(){
         players[i].y += players[i].vy;
         data.push({
             "x": players[i].x,
-            "y": players[i].y
+            "y": players[i].y,
+            "vx": players[i].vx,
+            "vy": players[i].vy
         });
     }
     io.sockets.emit("game", data);
