@@ -13,6 +13,9 @@
     var players = [];
     var index = 0;
     
+    var ax = 0;
+    var ay = 0;
+    
     setInterval(draw);
     function draw(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -29,7 +32,7 @@
             ctx.stroke();
         }
         ctx.fillStyle = "green";
-        ctx.fillRect((players[index].x+players[index].vx+players[index].ax)*scale, (players[index].y+players[index].vy+players[index].ay)*scale, scale, scale);
+        ctx.fillRect((players[index].x+players[index].vx+ax)*scale, (players[index].y+players[index].vy+ay)*scale, scale, scale);
     }
     
     var socket = io.connect();
@@ -38,9 +41,6 @@
         players = data.data;
         index = data.index;
     });
-    
-    var ax = 0;
-    var ay = 0;
     
     document.addEventListener('keydown', function(event){
         switch(event.key){
