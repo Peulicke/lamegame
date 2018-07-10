@@ -53,7 +53,7 @@ function update(){
             "y": players[i].y
         });
     }
-    io.sockets.emit("game", players);
+    io.sockets.emit("game", data);
 }
 
 setInterval(update,5000);
