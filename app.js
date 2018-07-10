@@ -12,10 +12,9 @@ server.listen(process.env.PORT || 4004, function(){
 
 io.on('connection', function(socket){
     socket.on('clientEvent', function(data){
-        console.log(data);
-        socket.emit('test', "Her er beskeden: " + data);
+        io.sockets.emit("test", "Ny bruger: " + (new Date()).toLocaleString());
     });
     socket.on('disconnect', function(){
-        io.sockets.emit('user disconnected');
+        io.sockets.emit("test", "Bruger logget af: " + (new Date()).toLocaleString());
     });
 });
