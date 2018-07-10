@@ -29,11 +29,34 @@
         }
     }
     
-    
     var socket = io.connect();
     //socket.emit('clientEvent', 'Sent an event from the client!');
     socket.on("game", function(data){
         players = data;
+    });
+    
+    var ax = 0;
+    var ay = 0;
+    
+    document.addEventListener('keydown', function(event){
+        switch(event.key){
+            case "ArrowLeft":
+                ax = Math.max(ax-1,-1);
+                break;
+            case "ArrowRight":
+                ax = Math.min(ax+1,1);
+                break;
+            case "ArrowLeft":
+                ay = Math.max(ay-1,-1);
+                break;
+            case "ArrowRight":
+                ay = Math.min(ay+1,1);
+                break;
+        }
+        socket.emit("a",{
+            "x": ax,
+            "y": ay
+        });
     });
     
 </script>
