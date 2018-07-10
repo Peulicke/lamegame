@@ -22,8 +22,8 @@ var level = {
 function Player(socket, index){
     this.socket = socket;
     this.index = index;
-    this.x = Math.floor(Math.rand()*level.width);
-    this.y = Math.floor(Math.rand()*level.height);
+    this.x = Math.floor(Math.random()*level.width);
+    this.y = Math.floor(Math.random()*level.height);
     this.vx = 0;
     this.vy = 0;
     this.ax = 0;
