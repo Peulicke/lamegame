@@ -6,7 +6,7 @@
    <script src = "/socket.io/socket.io.js"></script>
    
    <script>
-      var socket = io("https://lamegame.herokuapp.com");
+      var socket = io.connect();
       socket.emit('clientEvent', 'Sent an event from the client!');
    </script>
    <body>Hello world</body>
