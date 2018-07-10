@@ -11,10 +11,44 @@ server.listen(process.env.PORT || 4004, function(){
 });
 
 io.on('connection', function(socket){
-    socket.on('clientEvent', function(data){
-        io.sockets.emit("test", "Ny bruger: " + (new Date()).toLocaleString());
+    players.push(new Player(socket,players.length));
+});
+
+var level = {
+    "width": 100,
+    "height": 100
+};
+
+function Player(socket, index){
+    this.socket = socket;
+    this.index = index;
+    this.x = Math.floor(Math.rand()*level.width);
+    this.y = Math.floor(Math.rand()*level.height);
+    this.vx = 0;
+    this.vy = 0;
+    this.ax = 0;
+    this.ay = 0;
+    
+    var t = this;
+    socket.on("a", function(a){
+        t.ax = a.x;
+        t.ay = a.y;
     });
     socket.on('disconnect', function(){
-        io.sockets.emit("test", "Bruger logget af: " + (new Date()).toLocaleString());
+        players.splice(t.index,1);
     });
-});
+}
+
+var players = [];
+
+function update(){
+    for(var i in players){
+        players[i].vx += players[i].ax;
+        players[i].vy += players[i].ay;
+        players[i].x += players[i].vx;
+        players[i].y += players[i].vy;
+    }
+    io.sockets.emit("game", players);
+}
+
+setInterval(update,5000);

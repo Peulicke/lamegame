@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Hello world</title>
-    </head>
-    <script src = "/socket.io/socket.io.js"></script>
-    
-    <script>
-        var socket = io.connect();
-        socket.emit('clientEvent', 'Sent an event from the client!');
-        socket.on('test', function(data){
-            document.body.innerHTML = data;
-        });
-    </script>
-    <body>Hello world</body>
+<body>
+<script src = "/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect();
+    //socket.emit('clientEvent', 'Sent an event from the client!');
+    socket.on("game", function(data){
+        document.body.innerHTML = data;
+    });
+</script>
+</body>
 </html>
