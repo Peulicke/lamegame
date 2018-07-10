@@ -11,6 +11,7 @@
     
     var scale = 5;
     var players = [];
+    var index = 0;
     
     setInterval(draw);
     function draw(){
@@ -27,12 +28,15 @@
             ctx.lineTo((players[i].x+players[i].vx+0.5)*scale, (players[i].y+players[i].vy+0.5)*scale);
             ctx.stroke();
         }
+        ctx.fillStyle = "green";
+        ctx.fillRect((players[index].x+players[index].vx+players[index].ax)*scale, (players[index].y+players[index].vy+players[index].ay)*scale, scale, scale);
     }
     
     var socket = io.connect();
     //socket.emit('clientEvent', 'Sent an event from the client!');
     socket.on("game", function(data){
-        players = data;
+        players = data.data;
+        index = data.index;
     });
     
     var ax = 0;

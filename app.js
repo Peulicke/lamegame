@@ -55,7 +55,12 @@ function update(){
             "vy": players[i].vy
         });
     }
-    io.sockets.emit("game", data);
+    for(var i in players){
+        players[i].socket.emit("game", {
+            "data": data,
+            "index": i
+        });
+    }
 }
 
 setInterval(update,5000);
