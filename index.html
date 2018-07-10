@@ -42,6 +42,10 @@
         index = data.index;
         ax = 0;
         ay = 0;
+        socket.emit("a",{
+            "x": ax,
+            "y": ay
+        });
     });
     
     document.addEventListener('keydown', function(event){
