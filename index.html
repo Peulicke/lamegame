@@ -3,11 +3,29 @@
 <body>
 <script src = "/socket.io/socket.io.js"></script>
 <script>
+    var canvas = document.createElement("canvas");
+    canvas.width = 800;
+    canvas.height = 600;
+    var ctx = canvas.getContext("2d");
+    
+    var scale = 5;
+    var positions = [];
+    
+    setInterval(draw);
+    function draw(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for(var i in positions){
+            ctx.fillRect(positions[i].x*scale, positions[i].y*scale, scale, scale);
+        }
+    }
+    
+    
     var socket = io.connect();
     //socket.emit('clientEvent', 'Sent an event from the client!');
     socket.on("game", function(data){
-        document.body.innerHTML = JSON.stringify(data);
+        positions = data;
     });
+    
 </script>
 </body>
 </html>
