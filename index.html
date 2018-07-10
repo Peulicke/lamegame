@@ -8,6 +8,9 @@
    <script>
       var socket = io.connect();
       socket.emit('clientEvent', 'Sent an event from the client!');
+      socket.on('test', function(data){
+        document.body.innerHTML = data;
+      });
    </script>
    <body>Hello world</body>
 </html>

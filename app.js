@@ -9,6 +9,7 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
    socket.on('clientEvent', function(data) {
       console.log(data);
+      socket.emit('test', "Her er beskeden: " + data);
    });
 });
 
