@@ -63,4 +63,4 @@ function update(){
     }
 }
 
-setInterval(update,5000);
+setInterval(update,1000);
