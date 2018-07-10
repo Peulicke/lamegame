@@ -1,6 +1,6 @@
 var app = require('express')();
 var server = require('http').createServer(app);  
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(server);
 
 app.get('/', function(req, res) {
    res.sendfile('/index.html', { root:__dirname });
