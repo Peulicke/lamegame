@@ -1,8 +1,6 @@
 var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io');
-
-io.listen(http);
+var server = require('http').createServer(app);  
+var io = require('socket.io')(server);
 
 app.get('/', function(req, res) {
    res.sendfile('/index.html', { root:__dirname });
@@ -14,6 +12,6 @@ io.on('connection', function(socket) {
    });
 });
 
-http.listen(process.env.PORT || 4004, function() {
+server.listen(process.env.PORT || 4004, function() {
    console.log('listening');
 });
