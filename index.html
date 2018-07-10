@@ -23,8 +23,8 @@
             ctx.strokeStyle = "blue";
             ctx.lineWidth = scale*0.5;
             ctx.beginPath();
-            ctx.moveTo(players[i].x*scale, players[i].y*scale);
-            ctx.lineTo((players[i].x+players[i].vx)*scale, (players[i].y+players[i].vy)*scale);
+            ctx.moveTo((players[i].x+0.5)*scale, (players[i].y+0.5)*scale);
+            ctx.lineTo((players[i].x+players[i].vx+0.5))*scale, (players[i].y+players[i].vy+0.5))*scale);
             ctx.stroke();
         }
     }
