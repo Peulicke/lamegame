@@ -36,7 +36,6 @@
     }
     
     var socket = io.connect();
-    //socket.emit('clientEvent', 'Sent an event from the client!');
     socket.on("game", function(data){
         players = data.data;
         index = data.index;
