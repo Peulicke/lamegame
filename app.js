@@ -2,8 +2,10 @@ var app = require('express')();
 var server = require('http').createServer(app);  
 var io = require('socket.io').listen(server);
 
+app.use(express.static(__dirname));
+
 app.get('/', function(req, res){
-    res.sendfile('/index.html', { root:__dirname });
+    res.sendfile('/index.html', {root: __dirname});
 });
 
 server.listen(process.env.PORT || 4004, function(){
