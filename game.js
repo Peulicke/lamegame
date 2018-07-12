@@ -4,6 +4,8 @@ var scale;
 var players = [];
 var index = 0;
 var level = null;
+var mouseX = 0;
+var mouseY = 0;
 
 setInterval(draw);
 function draw(){
@@ -30,6 +32,23 @@ function drawLevel(){
             drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].player != null ? level[i][j].player.color : null);
         }
     }
+    var minDistSqr = 10000;
+    var iMin, jMin;
+    for(var i = 0; i < level.length; ++i){
+        for(var j = 0; j < level[i].length; ++j){
+            if(level[i][j] == null) continue;
+            var dx = level[i][j].x*scale-mouseX;
+            var dy = level[i][j].y*scale-mouseY;
+            var distSqr = dx*dx+dy*dy;
+            if(distSqr < minDistSqr){
+                minDistSqr = distSqr;
+                iMin = i;
+                jMin = j;
+            }
+        }
+    }
+    ctx.strokeStyle = "gray";
+    drawHexagon(level[iMin][jMin].x*scale, level[iMin][jMin].y*scale, scale, null);
 }
 
 function drawHexagon(x, y, r, color){
@@ -44,6 +63,7 @@ function drawHexagon(x, y, r, color){
     ctx.lineTo(x+r*Math.sqrt(3)/2, y-r/2);
     ctx.lineTo(x, y-r);
     ctx.closePath();
+    ctx.strokeStyle = "black";
     color != null ? ctx.fill() : ctx.stroke();
 }
 
@@ -57,6 +77,10 @@ socket.on("state", function(data){
     canvas.width = innerWidth*0.9;
     canvas.height = innerHeight*0.9;
     document.body.appendChild(canvas);
+    canvas.onmousemove = function(event){
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+    };
     ctx = canvas.getContext("2d");
     
     scale = canvas.width/((level[0].length+(level.length-1)/2)*2);
