@@ -46,7 +46,7 @@ socket.on("setup", function(data){
     document.body.appendChild(canvas);
     ctx = canvas.getContext("2d");
     
-    scale = canvas.width/(level[0].length*2);
+    scale = canvas.width/((level.length+(level[0].length-1)/2)*2);
 });
 
 document.addEventListener('keydown', function(event){
