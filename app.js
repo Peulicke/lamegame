@@ -19,7 +19,7 @@ io.on('connection', function(socket){
 
 var phase = "lobby"; // lobby => setup => (attack => reinforce)
 
-var width = 10, height = 10, density = 1;
+var width = 10, height = 8, density = 1;
 var level;
 var players = [];
 
