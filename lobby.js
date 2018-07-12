@@ -12,7 +12,7 @@ function createLobby(){
     btn.innerHTML = "Ready";
     btn.onclick = function(){
         console.log(colorInput.value);
-        socket.emit("color",colorInput.value);
+        socket.emit("color", colorInput.value);
     }
     document.body.appendChild(btn);
 }

@@ -40,9 +40,14 @@ function Player(socket, index){
 }
 
 function checkEveryoneReady(){
+    console.log("Is everyone ready?");
     for(var i in players){
-        if(players[i].color == null) return;
+        if(players[i].color == null){
+            console.log("No");
+            return;
+        }
     }
+    console.log("Yes");
     phase = "setup";
     level = [];
     for(var i = 0; i < height; ++i){
