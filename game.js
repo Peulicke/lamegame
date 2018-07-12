@@ -51,6 +51,7 @@ function drawLevel(){
     ctx.strokeStyle = "gray";
     ctx.lineWidth = 10;
     drawHexagon(level[iMin][jMin].x*scale, level[iMin][jMin].y*scale, scale, null);
+    ctx.lineWidth = 1;
 }
 
 function drawHexagon(x, y, r, color){
@@ -66,7 +67,6 @@ function drawHexagon(x, y, r, color){
     ctx.lineTo(x, y-r);
     ctx.closePath();
     ctx.strokeStyle = "black";
-    ctx.lineWidth = 1;
     color != null ? ctx.fill() : ctx.stroke();
 }
 
