@@ -19,7 +19,7 @@ function drawPlayers(){
     var space = 20;
     for(var i = 0; i < players.length; ++i){
         ctx.fillStyle = players[i].color;
-        ctx.fillRect(canvas.width-width,i*(height+space),width,height);
+        ctx.fillRect(canvas.width-width,space+i*(height+space),width,height);
     }
 }
 
