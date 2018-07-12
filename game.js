@@ -54,8 +54,8 @@ socket.on("state", function(data){
     
     document.body.innerHTML = "";
     canvas = document.createElement("canvas");
-    canvas.width = innerWidth*0.99;
-    canvas.height = innerHeight*0.99;
+    canvas.width = innerWidth*0.9;
+    canvas.height = innerHeight*0.9;
     document.body.appendChild(canvas);
     ctx = canvas.getContext("2d");
     
