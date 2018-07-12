@@ -40,6 +40,8 @@ function drawHexagon(x, y, r, color){
 }
 
 socket.on("setup", function(data){
+    console.log("Received setup data: ");
+    console.log(data);
     index = data.index;
     level = data.level;
     players = data.players;
