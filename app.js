@@ -62,7 +62,7 @@ function checkEveryoneReady(){
     var land = 0;
     console.log("Generating level");
     while(land < density*width*height){
-        console.log(level);
+        console.log(i + ", " + j);
         if(level[i][j] == null) ++land;
         level[i][j] = {
             "player": null,
