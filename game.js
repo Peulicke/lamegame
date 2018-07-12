@@ -1,9 +1,5 @@
-var canvas = document.createElement("canvas");
-canvas.width = 800;
-canvas.height = 600;
-document.body.appendChild(canvas);
-var ctx = canvas.getContext("2d");
-
+var canvas;
+var ctx;
 var scale = 40;
 var players = [];
 var index = 0;
@@ -42,6 +38,13 @@ socket.on("setup", function(data){
     index = data.index;
     level = data.level;
     players = data.players;
+    
+    document.body.innerHTML = "";
+    canvas = document.createElement("canvas");
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    document.body.appendChild(canvas);
+    ctx = canvas.getContext("2d");
 });
 
 document.addEventListener('keydown', function(event){
