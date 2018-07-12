@@ -81,11 +81,14 @@ function checkEveryoneReady(){
         j = Math.min(j, width-1);
     }
     for(var i = 0; i < players.length; ++i){
-        players[i].socket.emit("setup", {
+        var data = {
             "index": i,
             "players": getPlayerInformation(),
             "level": level
-        });
+        };
+        console.log("Sending data: ");
+        console.log(data);
+        players[i].socket.emit("setup", data);
     }
 }
 
