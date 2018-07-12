@@ -29,8 +29,8 @@ function drawHexagon(x, y, r, color){
     ctx.lineTo(x-r*Math.sqrt(3)/2, y-r/2);
     ctx.lineTo(x-r*Math.sqrt(3)/2, y+r/2);
     ctx.lineTo(x, y+r);
-    ctx.lineTo(x-r*Math.sqrt(3)/2, y+r/2);
     ctx.lineTo(x+r*Math.sqrt(3)/2, y+r/2);
+    ctx.lineTo(x+r*Math.sqrt(3)/2, y-r/2);
     ctx.lineTo(x, y-r);
     ctx.closePath();
     color != null ? ctx.fill() : ctx.stroke();
