@@ -70,7 +70,7 @@ function checkEveryoneReady(){
             "x": (j+i/2)*2,
             "y": (i*Math.sqrt(3)/2)*2
         };
-        switch(Math.floor(Math.random(6))){
+        switch(Math.floor(Math.random()*6)){
             case 0: --i; break;
             case 1: ++i; break;
             case 2: --j; break;
