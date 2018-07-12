@@ -18,7 +18,6 @@ io.on('connection', function(socket){
 });
 
 var phase = "lobby"; // lobby => setup => (attack => reinforce)
-
 var width = 10, height = 8, density = 0.5;
 var level;
 var players = [];
@@ -36,7 +35,12 @@ function Player(socket, index){
     });
     socket.on('disconnect', function(){
         players.splice(t.index, 1);
+        if(players.length == 0) reset();
     });
+}
+
+function reset(){
+    phase = "lobby";
 }
 
 function checkEveryoneReady(){
