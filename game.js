@@ -41,12 +41,12 @@ socket.on("setup", function(data){
     
     document.body.innerHTML = "";
     canvas = document.createElement("canvas");
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+    canvas.width = innerWidth*0.99;
+    canvas.height = innerHeight*0.99;
     document.body.appendChild(canvas);
     ctx = canvas.getContext("2d");
     
-    scale = canvas.width/((level[0].length+(level.length-1)/2)*2)*0.99;
+    scale = canvas.width/((level[0].length+(level.length-1)/2)*2);
 });
 
 document.addEventListener('keydown', function(event){
