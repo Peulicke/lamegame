@@ -9,6 +9,21 @@ setInterval(draw);
 function draw(){
     if(level == null) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawLevel();
+    drawPlayers();
+}
+
+function drawPlayers(){
+    var width = 100;
+    var height = 30;
+    var space = 20;
+    for(var i = 0; i < players.length; ++i){
+        ctx.fillStyle = players[i].color;
+        ctx.fillRect(canvas.width-width,i*(height+space),width,height);
+    }
+}
+
+function drawLevel(){
     for(var i = 0; i < level.length; ++i){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
