@@ -48,6 +48,7 @@ function checkEveryoneReady(){
         }
     }
     console.log("Yes");
+    console.log("Number of players: " + players.length);
     phase = "setup";
     level = [];
     for(var i = 0; i < height; ++i){
