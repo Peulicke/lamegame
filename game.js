@@ -9,6 +9,7 @@ var mouseY = 0;
 
 setInterval(draw);
 function draw(){
+    if(!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLevel();
     drawPlayers();
