@@ -67,8 +67,8 @@ function checkEveryoneReady(){
         level[i][j] = {
             "player": null,
             "n": 0,
-            "x": ((j+0.5)+(i+0.5)/2)*2,
-            "y": ((i+0.5)*Math.sqrt(3)/2)*2
+            "x": (j+i/2)*2+1,
+            "y": (i*Math.sqrt(3)/2)*2+Math.sqrt(1.25)
         };
         switch(Math.floor(Math.random()*6)){
             case 0: --i; break;
