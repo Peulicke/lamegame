@@ -60,7 +60,9 @@ function checkEveryoneReady(){
     var i = Math.floor(Math.random()*height);
     var j = Math.floor(Math.random()*width);
     var land = 0;
+    console.log("Generating level");
     while(land < density*width*height){
+        console.log(level);
         if(level[i][j] == null) ++land;
         level[i][j] = {
             "player": null,
