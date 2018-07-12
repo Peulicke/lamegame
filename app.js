@@ -87,15 +87,18 @@ function checkEveryoneReady(){
         j = Math.max(j, 0);
         j = Math.min(j, width-1);
     }
+    sendState();
+}
+
+function sendState(){
+    var playerData = getPlayerInformation();
     for(var i = 0; i < players.length; ++i){
         var data = {
             "index": i,
-            "players": getPlayerInformation(),
+            "players": playerData,
             "level": level
         };
-        console.log("Sending data: ");
-        console.log(data);
-        players[i].socket.emit("setup", data);
+        players[i].socket.emit("state", data);
     }
 }
 

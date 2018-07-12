@@ -47,9 +47,7 @@ function drawHexagon(x, y, r, color){
     color != null ? ctx.fill() : ctx.stroke();
 }
 
-socket.on("setup", function(data){
-    console.log("Received setup data: ");
-    console.log(data);
+socket.on("state", function(data){
     index = data.index;
     level = data.level;
     players = data.players;
