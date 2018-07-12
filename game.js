@@ -4,7 +4,7 @@ canvas.height = 600;
 document.body.appendChild(canvas);
 var ctx = canvas.getContext("2d");
 
-var scale = 10;
+var scale = 40;
 var players = [];
 var index = 0;
 var level = null;
