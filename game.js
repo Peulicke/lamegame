@@ -66,7 +66,7 @@ function drawHexagon(x, y, r, color){
     ctx.lineTo(x, y-r);
     ctx.closePath();
     ctx.strokeStyle = "black";
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 1;
     color != null ? ctx.fill() : ctx.stroke();
 }
 
