@@ -11,56 +11,82 @@ server.listen(process.env.PORT || 4004, function(){
 });
 
 io.on('connection', function(socket){
-    players.push(new Player(socket,players.length));
+    players.push(new Player(socket, players.length));
 });
 
-var level = {
-    "width": 100,
-    "height": 100
-};
+var phase = "lobby"; // lobby => setup => (attack => reinforce)
+
+var width = 10, height = 10, density = 0.5;
+var level;
+var players = [];
 
 function Player(socket, index){
     this.socket = socket;
     this.index = index;
-    this.x = Math.floor(Math.random()*level.width);
-    this.y = Math.floor(Math.random()*level.height);
-    this.vx = 0;
-    this.vy = 0;
-    this.ax = 0;
-    this.ay = 0;
+    this.color = null;
     
     var t = this;
-    socket.on("a", function(a){
-        t.ax = a.x;
-        t.ay = a.y;
+    socket.on("color", function(color){
+        if(phase != "lobby") return;
+        t.color = color;
+        checkEveryoneReady();
     });
     socket.on('disconnect', function(){
-        players.splice(t.index,1);
+        players.splice(t.index, 1);
     });
 }
 
-var players = [];
-
-function update(){
-    var data = [];
+function checkEveryoneReady(){
     for(var i in players){
-        players[i].vx += players[i].ax;
-        players[i].vy += players[i].ay;
-        players[i].x += players[i].vx;
-        players[i].y += players[i].vy;
-        data.push({
-            "x": players[i].x,
-            "y": players[i].y,
-            "vx": players[i].vx,
-            "vy": players[i].vy
-        });
+        if(players[i].color == null) return;
     }
-    for(var i in players){
-        players[i].socket.emit("game", {
-            "data": data,
-            "index": i
+    phase = "setup";
+    level = [];
+    for(var i = 0; i < height; ++i){
+        level.push([]);
+        for(var j = 0; j < height; ++j){
+            level[i].push(null);
+        }
+    }
+    var i = Math.floor(Math.random()*height);
+    var j = Math.floor(Math.random()*width);
+    var land = 0;
+    while(land < density*width*height){
+        if(level[i][j] == null) ++land;
+        level[i][j] = {
+            "player": null,
+            "n": 0,
+            "x": (j+i/2)*2,
+            "y": (i*Math.sqrt(3)/2)*2
+        };
+        switch(Math.floor(Math.random(6))){
+            case 0: --i; break;
+            case 1: ++i; break;
+            case 2: --j; break;
+            case 3: ++j; break;
+            case 4: --i; ++j; break;
+            case 5: ++i; --j; break;
+        }
+        i = Math.max(i, 0);
+        i = Math.min(i, height-1);
+        j = Math.max(j, 0);
+        j = Math.min(j, width-1);
+    }
+    for(var i = 0; i < players.length; ++i){
+        players[i].socket.emit("setup", {
+            "index": i,
+            "players": getPlayerInformation(),
+            "level": level
         });
     }
 }
 
-setInterval(update,1000);
+function getPlayerInformation(){
+    var result = [];
+    for(var i = 0; i < players.length; ++i){
+        result.push({
+            "color": players[i].color
+        });
+    }
+    return result;
+}
