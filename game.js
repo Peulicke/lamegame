@@ -1,6 +1,6 @@
 var canvas;
 var ctx;
-var scale = 40;
+var scale;
 var players = [];
 var index = 0;
 var level = null;
@@ -45,6 +45,8 @@ socket.on("setup", function(data){
     canvas.height = innerHeight;
     document.body.appendChild(canvas);
     ctx = canvas.getContext("2d");
+    
+    scale = canvas.width/(level[0].length*2);
 });
 
 document.addEventListener('keydown', function(event){
