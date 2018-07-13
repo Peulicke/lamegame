@@ -213,14 +213,26 @@ function checkEveryoneAttack(){
                 continue;
             }
             var maxAttacker = null;
+            var multipleMax;
             for(var p = 0; p < attackers.length; ++p){
                 var diff = (level[i][j].n*attackers[p].attack/sum)*(level[i][j].n*attackers[p].attack/sum)/attackers[p].attack;
                 attackers[p].attack -= diff;
                 sum -= diff;
-                if(maxAttacker == null || attackers[p].attack > maxAttacker.attack) maxAttacker = attackers[p];
+                if(maxAttacker == null || attackers[p].attack > maxAttacker.attack){
+                    maxAttacker = attackers[p];
+                    multipleMax = false;
+                    continue;
+                }
+                if(attackers[p].attack == maxAttacker.attack) multipleMax = true;
             }
             level[i][j].playerIndex = null;
             level[i][j].n = 0;
+            if(multipleMax){
+                for(var p in attackers){
+                    attackers[p].attack = 0;
+                }
+                continue;
+            }
             sum -= maxAttacker.attack;
             var kills = 0;
             for(var p in attackers){
