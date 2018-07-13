@@ -116,6 +116,10 @@ function checkEveryoneSetup(){
         level[players[i].i1][players[i].j1].playerIndex = i;
         ++level[players[i].i1][players[i].j1].n;
     }
+    for(var i in players){
+        players[i].i1 = null;
+        players[i].j1 = null;
+    }
     sendState();
 }
 
