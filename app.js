@@ -44,6 +44,19 @@ function Player(socket, index){
         t.j1 = pos.j;
         checkEveryoneSetup();
     });
+    socket.on("attack", function(pos){
+        if(phase != "attack") return;
+        t.i1 = pos.i1;
+        t.j1 = pos.j1;
+        t.i2 = pos.i2;
+        t.j2 = pos.j2;
+        checkEveryoneAttack();
+    });
+    socket.on("reinforce", function(pos){
+        if(phase != "reinforce") return;
+        t.reinforce = pos;
+        checkEveryoneReinforce();
+    });
     socket.on("select1", function(pos){
         t.i1 = pos.i;
         t.j1 = pos.j;
@@ -176,16 +189,20 @@ function checkEveryoneReinforce(){
     console.log("Number of players: " + players.length);
     console.log("Has everyone reinforced?");
     for(var i in players){
-        if(players[i].i1 == null || players[i].j1 == null){
+        if(players[i].reinforce == null){
             console.log("No");
             return;
         }
     }
     console.log("Yes");
     // TODO
-    for(var i in players){
-        players[i].i1 = null;
-        players[i].j1 = null;
+    for(var p in players){
+        for(var i = 0; i < height; ++i){
+            for(var j = 0; j < width; ++j){
+                level[i][j] += players[p].reinforce[i][j];
+            }
+        }
+        players[p].reinforce = null;
     }
     phase = "attack";
     sendState();

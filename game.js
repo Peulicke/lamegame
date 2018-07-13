@@ -34,7 +34,7 @@ function drawSetupLeft(){
 function drawPhase(){
     ctx.fillStyle = "black";
     ctx.textAlign = "left";
-    ctx.fillText("Phase: " + phase, 0, 0.95*canvas.height);
+    ctx.fillText("Phase: " + phase + (phase == "reinforce") ? ", reinforcement: " + reinforcement : "", 0, 0.95*canvas.height);
 }
 
 function drawPlayers(){
@@ -178,4 +178,14 @@ socket.on("state", function(data){
 
 document.addEventListener('keydown', function(event){
     console.log(event.key);
+    if(event.key != "Enter") return;
+    switch(phase){
+        case "attack":
+            socket.emit("attack", attack);
+            break;
+        case "reinforce":
+            if(reinforcement > 0) return;
+            socket.emit("reinforce", reinforce);
+            break;
+    }
 });
