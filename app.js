@@ -125,6 +125,7 @@ function checkEveryoneSetup(){
     for(var i in players){
         if(level[players[i].i1][players[i].j1].playerIndex == "multiple"){
             level[players[i].i1][players[i].j1].playerIndex = null;
+            level[players[i].i1][players[i].j1].n = 0;
         }
     }
     for(var i in players){
