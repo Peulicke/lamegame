@@ -21,7 +21,7 @@ function draw(){
 
 function drawSetupLeft(){
     ctx.fillStyle = "black";
-    ctx.fillText("Pieces left: " + setupLeft, 0.9*canvas.width, 0.7*canvas.height);
+    ctx.fillText("Pieces left: " + setupLeft, 0, 0.7*canvas.height);
 }
 
 function drawPlayers(){
