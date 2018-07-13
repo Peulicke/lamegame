@@ -86,13 +86,6 @@ function drawLevel(){
             ctx.strokeStyle = "gray";
             ctx.lineWidth = 3;
             drawHexagon(level[attack.i2][attack.j2].x*scale, level[attack.i2][attack.j2].y*scale, scale, null);
-            ctx.strokeStyle = players[index].color;
-            ctx.lineWidth = 10;
-            ctx.beginPath();
-            ctx.moveTo(level[attack.i1][attack.j1].x*scale, level[attack.i1][attack.j1].y*scale);
-            ctx.lineTo(level[attack.i2][attack.j2].x*scale, level[attack.i2][attack.j2].y*scale);
-            ctx.closePath();
-            ctx.stroke();
         }
     }
 }
