@@ -133,6 +133,14 @@ socket.on("state", function(data){
     };
     canvas.onmousedown = function(event){
         switch(phase){
+            case "setup":
+                if(event.button == 0){
+                    socket.emit("setup", {
+                        "i": selected.i,
+                        "j": selected.j
+                    });
+                }
+                break;
             case "reinforce":
                 if(event.button == 0 && reinforcement > 0){
                     ++reinforce[selected.i][selected.j];

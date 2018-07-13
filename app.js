@@ -38,6 +38,12 @@ function Player(socket, index){
         t.color = color;
         checkEveryoneReady();
     });
+    socket.on("setup", function(pos){
+        if(phase != "setup") return;
+        t.i1 = pos.i;
+        t.j1 = pos.j;
+        checkEveryoneSetup();
+    });
     socket.on("select1", function(pos){
         t.i1 = pos.i;
         t.j1 = pos.j;
