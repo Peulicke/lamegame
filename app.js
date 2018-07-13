@@ -57,20 +57,6 @@ function Player(socket, index){
         t.reinforce = pos;
         checkEveryoneReinforce();
     });
-    socket.on("select1", function(pos){
-        t.i1 = pos.i;
-        t.j1 = pos.j;
-        t.i2 = null;
-        t.j2 = null;
-        if(phase == "setup") checkEveryoneSetup();
-        if(phase == "reinforce") checkEveryoneReinforce();
-    });
-    socket.on("select2", function(pos){
-        if(phase != "attack") return;
-        t.i2 = pos.i;
-        t.j2 = pos.j;
-        checkEveryoneAttack();
-    });
     socket.on('disconnect', function(){
         players.splice(t.index, 1);
         if(players.length == 0) reset();

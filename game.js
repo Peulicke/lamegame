@@ -66,6 +66,15 @@ function drawLevel(){
     ctx.lineWidth = 10;
     drawHexagon(selected.x*scale, selected.y*scale, scale, null);
     ctx.lineWidth = 1;
+    if(attack.i1 != null && attack.j1 != null && attack.i2 != null && attack.j2 != null){
+        ctx.strokeStyle = players[index].color;
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(level[attack.i1][attack.j1].x, level[attack.i1][attack.j1].y);
+        ctx.lineTo(level[attack.i2][attack.j2].x, level[attack.i2][attack.j2].y);
+        ctx.closePath();
+        ctx.stroke();
+    }
 }
 
 function calculateClosest(){
@@ -157,16 +166,14 @@ socket.on("state", function(data){
                 break;
             case "attack":
                 if(event.button == 0){
-                    socket.emit("select1", {
-                        "i": selected.i,
-                        "j": selected.j
-                    });
+                    attack.i1 = selected.i;
+                    attack.j1 = selected.j;
+                    attack.i2 = null;
+                    attack.j2 = null;
                 }
                 if(event.button == 2){
-                    socket.emit("select2", {
-                        "i": selected.i,
-                        "j": selected.j
-                    });
+                    attack.i2 = selected.i;
+                    attack.j2 = selected.j;
                 }
                 break;
         }
@@ -182,6 +189,7 @@ document.addEventListener('keydown', function(event){
     if(event.key != "Enter") return;
     switch(phase){
         case "attack":
+            if(attack.i1 == null || attack.j1 == null || attack.i2 == null || attack.j2 == null) return;
             socket.emit("attack", attack);
             break;
         case "reinforce":
