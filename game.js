@@ -135,6 +135,7 @@ socket.on("state", function(data){
         mouseY = event.clientY;
     };
     canvas.onmousedown = function(event){
+        event.preventDefault();
         switch(phase){
             case "setup":
                 if(event.button == 0){
