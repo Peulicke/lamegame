@@ -111,7 +111,7 @@ socket.on("state", function(data){
     ctx = canvas.getContext("2d");
     ctx.font = "30px Arial";
     
-    scale = Math.min(canvas.width/((level[0].length+(level.length-1)/2)*2), canvas.height/((0.5+1.5*level.length)*Math.sqrt(1.25)))*0.98;
+    scale = Math.min(canvas.width/((level[0].length+(level.length-1)/2)*2), canvas.height/((0.5+1.5*level.length)*Math.sqrt(1.25)))*0.95;
 });
 
 document.addEventListener('keydown', function(event){
