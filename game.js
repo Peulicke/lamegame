@@ -135,7 +135,6 @@ socket.on("state", function(data){
         mouseY = event.clientY;
     };
     canvas.onmousedown = function(event){
-        event.preventDefault();
         switch(phase){
             case "setup":
                 if(event.button == 0){
@@ -170,6 +169,7 @@ socket.on("state", function(data){
                 }
                 break;
         }
+        event.preventDefault();
     };
     ctx = canvas.getContext("2d");
     ctx.font = "30px Arial";
