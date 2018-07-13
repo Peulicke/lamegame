@@ -69,7 +69,7 @@ function checkEveryoneReady(){
     level = [];
     for(var i = 0; i < height; ++i){
         level.push([]);
-        for(var j = 0; j < height; ++j){
+        for(var j = 0; j < width; ++j){
             level[i].push(null);
         }
     }
