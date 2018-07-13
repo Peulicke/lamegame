@@ -307,13 +307,13 @@ function sendState(){
             "area": 0
         });
         players[i].area = 0;
-        players[i].endTurn = false;
     }
     for(var i = 0; i < height; ++i){
         for(var j = 0; j < width; ++j){
             if(level[i][j] == null || level[i][j].playerIndex == null) continue;
             ++players[level[i][j].playerIndex].area;
             ++playerData[level[i][j].playerIndex].area;
+            players[level[i][j].playerIndex].endTurn = false;
         }
     }
     for(var i = 0; i < players.length; ++i){
