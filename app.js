@@ -120,7 +120,7 @@ function checkEveryoneSetup(){
 }
 
 function sendState(){
-    var playerData;
+    var playerData = [];
     for(var i = 0; i < players.length; ++i){
         playerData.push({
             "color": players[i].color
