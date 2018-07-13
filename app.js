@@ -188,6 +188,7 @@ function checkEveryoneAttack(){
     // Troops meet at territories
     for(var i = 0; i < height; ++i){
         for(var j = 0; j < width; ++j){
+            if(level[i][j] == null) continue;
             var attackers = [];
             var sum = 0;
             for(var p in players){
