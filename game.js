@@ -11,6 +11,7 @@ var phase = "lobby";
 var setupLeft = 0;
 var attack = null;
 var reinforce = null;
+var reinforcement = 0;
 
 setInterval(draw);
 
@@ -50,8 +51,12 @@ function drawLevel(){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
             drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].playerIndex != null ? players[level[i][j].playerIndex].color : null);
+            var text = level[i][j].n;
+            if(phase == "reinforce" && level[i][j].playerIndex == index && reinforce[i][j] > 0){
+                text += " + " + reinforce[i][j];
+            }
             ctx.fillStyle = "black";
-            ctx.fillText(level[i][j].n, level[i][j].x*scale, level[i][j].y*scale);
+            ctx.fillText(text, level[i][j].x*scale, level[i][j].y*scale);
         }
     }
     ctx.strokeStyle = "gray";
@@ -115,6 +120,7 @@ socket.on("state", function(data){
             reinforce.push(0);
         }
     }
+    reinforcement = Math.max(Math.floor(players[index].area/3), 3);
     
     document.body.innerHTML = "";
     canvas = document.createElement("canvas");
@@ -126,6 +132,18 @@ socket.on("state", function(data){
         mouseY = event.clientY;
     };
     canvas.onmousedown = function(event){
+        switch(phase){
+            case "reinforce":
+                if(event.button == 0 && reinforcement > 0){
+                    ++reinforce[selected.i][selected.j];
+                    --reinforcement;
+                }
+                if(event.button == 2 && reinforce[selected.i][selected.j] > 0){
+                    --reinforce[selected.i][selected.j];
+                    ++reinforcement;
+                }
+                break;
+        }
         if(event.button == 0){
             socket.emit("select1", {
                 "i": selected.i,
