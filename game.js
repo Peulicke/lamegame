@@ -6,10 +6,12 @@ var index = 0;
 var level = null;
 var mouseX = 0;
 var mouseY = 0;
+var selected;
 
 setInterval(draw);
 function draw(){
     if(!ctx) return;
+    calculateClosest();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLevel();
     drawPlayers();
@@ -33,6 +35,13 @@ function drawLevel(){
             drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].player != null ? level[i][j].player.color : null);
         }
     }
+    ctx.strokeStyle = "gray";
+    ctx.lineWidth = 10;
+    drawHexagon(selected.x*scale, selected.y*scale, scale, null);
+    ctx.lineWidth = 1;
+}
+
+function calculateClosest(){
     var minDistSqr = 100000000;
     var iMin, jMin;
     for(var i = 0; i < level.length; ++i){
@@ -48,10 +57,7 @@ function drawLevel(){
             }
         }
     }
-    ctx.strokeStyle = "gray";
-    ctx.lineWidth = 10;
-    drawHexagon(level[iMin][jMin].x*scale, level[iMin][jMin].y*scale, scale, null);
-    ctx.lineWidth = 1;
+    selected = level[iMin][jMin];
 }
 
 function drawHexagon(x, y, r, color){
@@ -83,6 +89,13 @@ socket.on("state", function(data){
     canvas.onmousemove = function(event){
         mouseX = event.clientX;
         mouseY = event.clientY;
+    };
+    canvas.onmousedown = function(event){
+        if(event.button != 0) return;
+        socket.emit("select", {
+            "i": selected.i,
+            "j": selected.j
+        });
     };
     ctx = canvas.getContext("2d");
     

@@ -26,12 +26,22 @@ function Player(socket, index){
     this.socket = socket;
     this.index = index;
     this.color = null;
+    this.i1 = null;
+    this.j1 = null;
+    this.i2 = null;
+    this.j2 = null;
     
     var t = this;
     socket.on("color", function(color){
         if(phase != "lobby") return;
         t.color = color;
         checkEveryoneReady();
+    });
+    socket.on("select", function(pos){
+        if(phase != "setup") return;
+        t.i1 = pos.i;
+        t.j1 = pos.j;
+        checkEveryoneSetup();
     });
     socket.on('disconnect', function(){
         players.splice(t.index, 1);
@@ -71,6 +81,8 @@ function checkEveryoneReady(){
         level[i][j] = {
             "player": null,
             "n": 0,
+            "i": i,
+            "j": j,
             "x": (j+i/2)*2+1,
             "y": (i*Math.sqrt(3)/2)*2+Math.sqrt(1.25)
         };
@@ -86,6 +98,23 @@ function checkEveryoneReady(){
         i = Math.min(i, height-1);
         j = Math.max(j, 0);
         j = Math.min(j, width-1);
+    }
+    sendState();
+}
+
+function checkEveryoneReady(){
+    console.log("Is everyone setup?");
+    for(var i in players){
+        if(players[i].i1 == null || players[i].j1 == null){
+            console.log("No");
+            return;
+        }
+    }
+    console.log("Yes");
+    console.log("Number of players: " + players.length);
+    for(var i in players){
+        level[players[i].i1][players[i].j1].player = players[i];
+        ++level[players[i].i1][players[i].j1].n;
     }
     sendState();
 }
