@@ -33,6 +33,7 @@ function drawLevel(){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
             drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].playerIndex != null ? players[level[i][j].playerIndex].color : null);
+            ctx.fillText(level[i][j].n, level[i][j].x*scale, level[i][j].y*scale);
         }
     }
     ctx.strokeStyle = "gray";
@@ -99,6 +100,7 @@ socket.on("state", function(data){
         });
     };
     ctx = canvas.getContext("2d");
+    ctx.font = "30px Arial";
     
     scale = canvas.width/((level[0].length+(level.length-1)/2)*2);
 });
