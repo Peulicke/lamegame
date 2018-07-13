@@ -102,7 +102,7 @@ function checkEveryoneReady(){
     sendState();
 }
 
-function checkEveryoneReady(){
+function checkEveryoneSetup(){
     console.log("Is everyone setup?");
     for(var i in players){
         if(players[i].i1 == null || players[i].j1 == null){
