@@ -160,28 +160,87 @@ function checkEveryoneAttack(){
         }
     }
     console.log("Yes");
+    // Troops leave
     for(var i in players){
         players[i].attack = level[players[i].i1][players[i].j1].n-1;
         level[players[i].i1][players[i].j1].n = 1;
     }
-    for(var i in players){
-        if(players[i].attack == level[players[i].i2][players[i].j2].n){
-            level[players[i].i2][players[i].j2].playerIndex = null;
-            level[players[i].i2][players[i].j2].n = 0;
-            continue;
+    // Troops meet at borders
+    for(var i = 0; i < players.length; ++i){
+        if(players[i].attack == 0) continue;
+        for(var j = i+1; j < players.length; ++j){
+            if(players[j].attack == 0) continue;
+            if(players[i].i1 != players[j].i2 || players[i].j1 != players[j].j2 || players[i].i2 != players[j].i1 || players[i].j2 != players[j].j1) continue;
+            if(players[i].attack == players[j].attack){
+                players[i].attack = players[j].attack = 0;
+                break;
+            }
+            if(players[i].attack < players[j].attack){
+                players[j].attack -= deadAfterFight(players[i].attack, players[j].attack);
+                players[i].attack = 0;
+                break;
+            }
+            players[i].attack -= deadAfterFight(players[i].attack, players[j].attack);
+            players[j].attack = 0;
+            break;
         }
-        if(players[i].attack < level[players[i].i2][players[i].j2].n){
-            level[players[i].i2][players[i].j2].n -= deadAfterFight(players[i].attack, level[players[i].i2][players[i].j2].n);
-            continue;
+    }
+    // Troops meet at territories
+    for(var i = 0; i < height; ++i){
+        for(var j = 0; j < width; ++j){
+            var attackers = [];
+            var sum = 0;
+            for(var p in players){
+                if(players[p].i2 == i && players[p].j2 == j && players[p].attack > 0){
+                    attackers.push(players[p]);
+                    sum += players[p].attack;
+                }
+            }
+            if(level[i][j].n == sum){
+                level[i][j].playerIndex = null;
+                level[i][j].n = 0;
+                for(var p in attackers){
+                    attackers[p].attack = 0;
+                }
+                continue;
+            }
+            if(level[i][j].n > sum){
+                level[i][j].n -= deadAfterFight(level[i][j].n, sum);
+                for(var p in attackers){
+                    attackers[p].attack = 0;
+                }
+                continue;
+            }
+            var maxAttacker = null;
+            for(var p = 0; p < attackers.length; ++p){
+                var diff = (level[i][j].n*attackers[p].attack/sum)*(level[i][j].n*attackers[p].attack/sum)/attackers[p].attack;
+                attackers[p].attack -= diff;
+                sum -= diff;
+                if(maxAttacker == null || attackers[p].attack > maxAttacker.attack) maxAttacker = attackers[p];
+            }
+            level[i][j].playerIndex = null;
+            level[i][j].n = 0;
+            sum -= maxAttacker.attack;
+            var kills = 0;
+            for(var p in attackers){
+                if(attackers[p] == maxAttacker) continue;
+                kills += attackers[p].attack*attackers[p].attack/maxAttacker.attack;
+                attackers[p].attack = 0;
+            }
+            maxAttacker.attack -= kills;
+            maxAttacker.attack = Math.max(Math.floor(maxAttacker.attack), 0);
+            if(maxAttacker.attack == 0) continue;
+            level[i][j].playerIndex = maxAttacker.index;
+            level[i][j].n = maxAttacker.attack;
+            maxAttacker.attack = 0;
         }
-        level[players[i].i2][players[i].j2].playerIndex = i;
-        level[players[i].i2][players[i].j2].n = players[i].attack-deadAfterFight(players[i].attack, level[players[i].i2][players[i].j2].n);
     }
     for(var i in players){
         players[i].i1 = null;
         players[i].j1 = null;
         players[i].i2 = null;
         players[i].j2 = null;
+        players[i].attack = null;
     }
     phase = "reinforce";
     sendState();
