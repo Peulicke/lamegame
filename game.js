@@ -143,18 +143,20 @@ socket.on("state", function(data){
                     ++reinforcement;
                 }
                 break;
-        }
-        if(event.button == 0){
-            socket.emit("select1", {
-                "i": selected.i,
-                "j": selected.j
-            });
-        }
-        if(event.button == 2){
-            socket.emit("select2", {
-                "i": selected.i,
-                "j": selected.j
-            });
+            case "attack":
+                if(event.button == 0){
+                    socket.emit("select1", {
+                        "i": selected.i,
+                        "j": selected.j
+                    });
+                }
+                if(event.button == 2){
+                    socket.emit("select2", {
+                        "i": selected.i,
+                        "j": selected.j
+                    });
+                }
+                break;
         }
     };
     ctx = canvas.getContext("2d");
