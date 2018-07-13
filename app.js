@@ -92,7 +92,7 @@ function checkEveryoneReady(){
     }
     console.log("Yes");
     phase = "setup";
-    setupLeft = 2*(density*width*height/players.length);
+    setupLeft = 0.5*(density*width*height/players.length);
     level = [];
     for(var i = 0; i < height; ++i){
         level.push([]);

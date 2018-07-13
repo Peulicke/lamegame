@@ -74,7 +74,7 @@ function calculateClosest(){
     for(var i = 0; i < level.length; ++i){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
-            if(level[i][j].playerIndex != null && level[i][j].playerIndex != index) continue;
+            if((phase == "setup" || phase == "reinforce") && level[i][j].playerIndex != index) continue;
             var dx = level[i][j].x*scale-mouseX;
             var dy = level[i][j].y*scale-mouseY;
             var distSqr = dx*dx+dy*dy;
