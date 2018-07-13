@@ -33,6 +33,7 @@ function drawLevel(){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
             drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].playerIndex != null ? players[level[i][j].playerIndex].color : null);
+            ctx.fillStyle = "black";
             ctx.fillText(level[i][j].n, level[i][j].x*scale, level[i][j].y*scale);
         }
     }
