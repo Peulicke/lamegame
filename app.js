@@ -199,7 +199,7 @@ function checkEveryoneReinforce(){
     for(var p in players){
         for(var i = 0; i < height; ++i){
             for(var j = 0; j < width; ++j){
-                level[i][j] += players[p].reinforce[i][j];
+                level[i][j].n += players[p].reinforce[i][j];
             }
         }
         players[p].reinforce = null;
