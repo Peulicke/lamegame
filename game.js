@@ -56,6 +56,7 @@ function drawLevel(){
     for(var i = 0; i < level.length; ++i){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
+            ctx.strokeStyle = "black";
             ctx.lineWidth = 1;
             drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].playerIndex != null ? players[level[i][j].playerIndex].color : null);
             if(level[i][j].n == 0) continue;
@@ -68,17 +69,23 @@ function drawLevel(){
             ctx.fillText(text, level[i][j].x*scale, level[i][j].y*scale);
         }
     }
-    ctx.strokeStyle = "gray";
+    ctx.strokeStyle = "black";
     ctx.lineWidth = 10;
     drawHexagon(selected.x*scale, selected.y*scale, scale, null);
-    if(attack.i1 != null && attack.j1 != null && attack.i2 != null && attack.j2 != null){
-        ctx.strokeStyle = players[index].color;
-        ctx.lineWidth = 10;
-        ctx.beginPath();
-        ctx.moveTo(level[attack.i1][attack.j1].x*scale, level[attack.i1][attack.j1].y*scale);
-        ctx.lineTo(level[attack.i2][attack.j2].x*scale, level[attack.i2][attack.j2].y*scale);
-        ctx.closePath();
-        ctx.stroke();
+    if(attack.i1 != null && attack.j1 != null){
+        ctx.strokeStyle = "gray";
+        ctx.lineWidth = 5;
+        drawHexagon(level[attack.i1][attack.j1].x*scale, level[attack.i1][attack.j1].y*scale, scale, null);
+        if(attack.i2 != null && attack.j2 != null){
+            drawHexagon(level[attack.i2][attack.j2].x*scale, level[attack.i2][attack.j2].y*scale, scale, null);
+            ctx.strokeStyle = players[index].color;
+            ctx.lineWidth = 10;
+            ctx.beginPath();
+            ctx.moveTo(level[attack.i1][attack.j1].x*scale, level[attack.i1][attack.j1].y*scale);
+            ctx.lineTo(level[attack.i2][attack.j2].x*scale, level[attack.i2][attack.j2].y*scale);
+            ctx.closePath();
+            ctx.stroke();
+        }
     }
 }
 
@@ -115,7 +122,6 @@ function drawHexagon(x, y, r, color){
     ctx.lineTo(x+r*Math.sqrt(3)/2, y-r/2);
     ctx.lineTo(x, y-r);
     ctx.closePath();
-    ctx.strokeStyle = "black";
     color != null ? ctx.fill() : ctx.stroke();
 }
 
