@@ -131,6 +131,7 @@ function checkEveryoneSetup(){
         players[i].i1 = null;
         players[i].j1 = null;
     }
+    --setupLeft;
     sendState();
 }
 
