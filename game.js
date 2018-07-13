@@ -44,6 +44,10 @@ function drawPlayers(){
     for(var i = 0; i < players.length; ++i){
         ctx.fillStyle = players[i].color;
         ctx.fillRect(canvas.width-width,space+i*(height+space),width,height);
+        if(i != index) continue;
+        ctx.fillStyle = "black";
+        ctx.lineWidth = 5;
+        ctx.strokeRect(canvas.width-width,space+i*(height+space),width,height);
     }
 }
 
