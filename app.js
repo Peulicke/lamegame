@@ -189,11 +189,21 @@ function sendState(){
     var playerData = [];
     for(var i = 0; i < players.length; ++i){
         playerData.push({
-            "color": players[i].color
+            "color": players[i].color,
+            "area": 0
         });
+        players[i].area = 0;
+    }
+    for(var i = 0; i < height; ++i){
+        for(var j = 0; j < width; ++j){
+            if(level[i][j] == null || level[i][j].playerIndex == null) continue;
+            ++players[level[i][j].playerIndex].area;
+            ++playerData[level[i][j].playerIndex].area;
+        }
     }
     for(var i = 0; i < players.length; ++i){
         var data = {
+            "phase": phase,
             "index": i,
             "players": playerData,
             "level": level,

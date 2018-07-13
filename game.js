@@ -7,7 +7,10 @@ var level = null;
 var mouseX = 0;
 var mouseY = 0;
 var selected;
+var phase = "lobby";
 var setupLeft = 0;
+var attack = null;
+var reinforce = null;
 
 setInterval(draw);
 
@@ -18,11 +21,17 @@ function draw(){
     drawLevel();
     drawPlayers();
     if(setupLeft > 0) drawSetupLeft();
+    drawPhase();
 }
 
 function drawSetupLeft(){
     ctx.fillStyle = "black";
     ctx.fillText("Pieces left: " + setupLeft, 0, 0.9*canvas.height);
+}
+
+function drawPhase(){
+    ctx.fillStyle = "black";
+    ctx.fillText("Phase: " + phase, 0, 0.95*canvas.height);
 }
 
 function drawPlayers(){
@@ -88,10 +97,24 @@ function drawHexagon(x, y, r, color){
 }
 
 socket.on("state", function(data){
+    phase = data.phase;
     index = data.index;
     level = data.level;
     players = data.players;
     setupLeft = data.setupLeft;
+    attack = {
+        "i1": null,
+        "j1": null,
+        "i2": null,
+        "j2": null
+    };
+    reinforce = [];
+    for(var i = 0; i < level.length; ++i){
+        reinforce.push([]);
+        for(var j = 0; j < level[i].length; ++j){
+            reinforce.push(0);
+        }
+    }
     
     document.body.innerHTML = "";
     canvas = document.createElement("canvas");
