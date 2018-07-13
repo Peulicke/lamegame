@@ -285,8 +285,8 @@ function checkEveryoneReinforce(){
         }
     }
     console.log("Yes");
-    // TODO
     for(var p in players){
+        if(players[p].reinforce == null) continue;
         for(var i = 0; i < height; ++i){
             for(var j = 0; j < width; ++j){
                 if(level[i][j] == null || level[i][j].playerIndex != p) continue;
@@ -326,14 +326,4 @@ function sendState(){
         };
         players[i].socket.emit("state", data);
     }
-}
-
-function getPlayerInformation(){
-    var result = [];
-    for(var i = 0; i < players.length; ++i){
-        result.push({
-            "color": players[i].color
-        });
-    }
-    return result;
 }
