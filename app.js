@@ -141,8 +141,8 @@ function checkEveryoneSetup(){
         players[i].j1 = null;
     }
     --setupLeft;
-    sendState();
     if(setupLeft == 0) phase = "attack";
+    sendState();
 }
 
 function checkEveryoneAttack(){
