@@ -113,8 +113,17 @@ function checkEveryoneSetup(){
     }
     console.log("Yes");
     for(var i in players){
-        level[players[i].i1][players[i].j1].playerIndex = i;
-        ++level[players[i].i1][players[i].j1].n;
+        if(level[players[i].i1][players[i].j1].playerIndex == null || level[players[i].i1][players[i].j1].playerIndex == i){
+            level[players[i].i1][players[i].j1].playerIndex = i;
+            ++level[players[i].i1][players[i].j1].n;
+            continue;
+        }
+        level[players[i].i1][players[i].j1].playerIndex = "multiple";
+    }
+    for(var i in players){
+        if(level[players[i].i1][players[i].j1].playerIndex == "multiple"){
+            level[players[i].i1][players[i].j1].playerIndex = null;
+        }
     }
     for(var i in players){
         players[i].i1 = null;
