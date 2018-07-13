@@ -69,6 +69,7 @@ function drawLevel(){
             ctx.fillText(text, level[i][j].x*scale, level[i][j].y*scale);
         }
     }
+    if(selected == null) return;
     ctx.strokeStyle = "black";
     ctx.lineWidth = 10;
     drawHexagon(selected.x*scale, selected.y*scale, scale, null);
@@ -92,7 +93,7 @@ function drawLevel(){
 
 function calculateClosest(){
     var minDistSqr = 100000000;
-    var iMin, jMin;
+    var iMin = null, jMin = null;
     for(var i = 0; i < level.length; ++i){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
@@ -108,6 +109,7 @@ function calculateClosest(){
             }
         }
     }
+    if(iMin == null || jMin == null) return;
     selected = level[iMin][jMin];
 }
 
@@ -157,6 +159,7 @@ socket.on("state", function(data){
         mouseY = event.clientY;
     };
     canvas.onmousedown = function(event){
+        if(selected == null) return;
         switch(phase){
             case "setup":
                 if(event.button == 0){
