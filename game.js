@@ -52,6 +52,7 @@ function drawLevel(){
     for(var i = 0; i < level.length; ++i){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
+            ctx.lineWidth = 1;
             drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].playerIndex != null ? players[level[i][j].playerIndex].color : null);
             var text = level[i][j].n;
             if(phase == "reinforce" && level[i][j].playerIndex == index && reinforce[i][j] > 0){
@@ -65,7 +66,6 @@ function drawLevel(){
     ctx.strokeStyle = "gray";
     ctx.lineWidth = 10;
     drawHexagon(selected.x*scale, selected.y*scale, scale, null);
-    ctx.lineWidth = 1;
     if(attack.i1 != null && attack.j1 != null && attack.i2 != null && attack.j2 != null){
         ctx.strokeStyle = players[index].color;
         ctx.lineWidth = 10;
