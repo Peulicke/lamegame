@@ -103,6 +103,7 @@ function checkEveryoneReady(){
 }
 
 function checkEveryoneSetup(){
+    console.log("Number of players: " + players.length);
     console.log("Is everyone setup?");
     for(var i in players){
         if(players[i].i1 == null || players[i].j1 == null){
@@ -111,7 +112,6 @@ function checkEveryoneSetup(){
         }
     }
     console.log("Yes");
-    console.log("Number of players: " + players.length);
     for(var i in players){
         level[players[i].i1][players[i].j1].playerIndex = i;
         ++level[players[i].i1][players[i].j1].n;
