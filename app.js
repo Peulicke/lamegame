@@ -31,6 +31,7 @@ function Player(socket, index){
     this.j1 = null;
     this.i2 = null;
     this.j2 = null;
+    this.endTurn = false;
     
     var t = this;
     socket.on("color", function(color){
@@ -42,6 +43,7 @@ function Player(socket, index){
         if(phase != "setup") return;
         t.i1 = pos.i;
         t.j1 = pos.j;
+        t.endTurn = true;
         checkEveryoneSetup();
     });
     socket.on("attack", function(pos){
@@ -50,11 +52,13 @@ function Player(socket, index){
         t.j1 = pos.j1;
         t.i2 = pos.i2;
         t.j2 = pos.j2;
+        t.endTurn = true;
         checkEveryoneAttack();
     });
     socket.on("reinforce", function(pos){
         if(phase != "reinforce") return;
         t.reinforce = pos;
+        t.endTurn = true;
         checkEveryoneReinforce();
     });
     socket.on('disconnect', function(){
@@ -121,7 +125,7 @@ function checkEveryoneSetup(){
     console.log("Number of players: " + players.length);
     console.log("Is everyone setup?");
     for(var i in players){
-        if(players[i].i1 == null || players[i].j1 == null){
+        if(!players[i].endTurn){
             console.log("No");
             return;
         }
@@ -154,7 +158,7 @@ function checkEveryoneAttack(){
     console.log("Number of players: " + players.length);
     console.log("Has everyone attacked?");
     for(var i in players){
-        if(players[i].i1 == null || players[i].j1 == null || players[i].i2 == null || players[i].j2 == null){
+        if(!players[i].endTurn){
             console.log("No");
             return;
         }
@@ -275,7 +279,7 @@ function checkEveryoneReinforce(){
     console.log("Number of players: " + players.length);
     console.log("Has everyone reinforced?");
     for(var i in players){
-        if(players[i].reinforce == null){
+        if(!players[i].endTurn){
             console.log("No");
             return;
         }
@@ -303,6 +307,7 @@ function sendState(){
             "area": 0
         });
         players[i].area = 0;
+        players[i].endTurn = false;
     }
     for(var i = 0; i < height; ++i){
         for(var j = 0; j < width; ++j){
