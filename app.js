@@ -55,6 +55,7 @@ function reset(){
 }
 
 function checkEveryoneReady(){
+    console.log("Number of players: " + players.length);
     console.log("Is everyone ready?");
     for(var i in players){
         if(players[i].color == null){
@@ -63,7 +64,6 @@ function checkEveryoneReady(){
         }
     }
     console.log("Yes");
-    console.log("Number of players: " + players.length);
     phase = "setup";
     setupLeft = 2*(density*width*height/players.length);
     level = [];
