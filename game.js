@@ -27,11 +27,13 @@ function draw(){
 
 function drawSetupLeft(){
     ctx.fillStyle = "black";
+    ctx.textAlign = "left";
     ctx.fillText("Pieces left: " + setupLeft, 0, 0.9*canvas.height);
 }
 
 function drawPhase(){
     ctx.fillStyle = "black";
+    ctx.textAlign = "left";
     ctx.fillText("Phase: " + phase, 0, 0.95*canvas.height);
 }
 
@@ -56,6 +58,7 @@ function drawLevel(){
                 text += " + " + reinforce[i][j];
             }
             ctx.fillStyle = "black";
+            ctx.textAlign = "center";
             ctx.fillText(text, level[i][j].x*scale, level[i][j].y*scale);
         }
     }
