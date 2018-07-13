@@ -32,7 +32,7 @@ function drawLevel(){
     for(var i = 0; i < level.length; ++i){
         for(var j = 0; j < level[i].length; ++j){
             if(level[i][j] == null) continue;
-            drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].player != null ? level[i][j].player.color : null);
+            drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].playerIndex != null ? players[level[i][j].playerIndex].color : null);
         }
     }
     ctx.strokeStyle = "gray";

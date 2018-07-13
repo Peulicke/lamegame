@@ -79,7 +79,7 @@ function checkEveryoneReady(){
         console.log(i + ", " + j);
         if(level[i][j] == null) ++land;
         level[i][j] = {
-            "player": null,
+            "playerIndex": null,
             "n": 0,
             "i": i,
             "j": j,
@@ -113,14 +113,19 @@ function checkEveryoneSetup(){
     console.log("Yes");
     console.log("Number of players: " + players.length);
     for(var i in players){
-        level[players[i].i1][players[i].j1].player = players[i];
+        level[players[i].i1][players[i].j1].playerIndex = i;
         ++level[players[i].i1][players[i].j1].n;
     }
     sendState();
 }
 
 function sendState(){
-    var playerData = getPlayerInformation();
+    var playerData;
+    for(var i = 0; i < players.length; ++i){
+        playerData.push({
+            "color": players[i].color
+        });
+    }
     for(var i = 0; i < players.length; ++i){
         var data = {
             "index": i,
