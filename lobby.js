@@ -7,6 +7,7 @@ socket.on("connect", function(){
 function createLobby(){
     var colorInput = document.createElement("input");
     colorInput.type = "color";
+    colorInput.value = "#" + Math.floor(Math.random()*256*256*256).toString(16);
     document.body.appendChild(colorInput);
     var btn = document.createElement("button");
     btn.innerHTML = "Ready";
