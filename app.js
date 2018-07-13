@@ -199,6 +199,7 @@ function checkEveryoneReinforce(){
     for(var p in players){
         for(var i = 0; i < height; ++i){
             for(var j = 0; j < width; ++j){
+                if(level[i][j] == null || level[i][j].playerIndex != p) continue;
                 level[i][j].n += players[p].reinforce[i][j];
             }
         }
