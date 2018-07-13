@@ -169,7 +169,6 @@ socket.on("state", function(data){
                 }
                 break;
         }
-        event.preventDefault();
     };
     ctx = canvas.getContext("2d");
     ctx.font = "30px Arial";
