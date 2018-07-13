@@ -307,6 +307,7 @@ function sendState(){
             "area": 0
         });
         players[i].area = 0;
+        if(phase == "setup") players[i].endTurn = false;
     }
     for(var i = 0; i < height; ++i){
         for(var j = 0; j < width; ++j){
