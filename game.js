@@ -70,8 +70,8 @@ function drawLevel(){
         ctx.strokeStyle = players[index].color;
         ctx.lineWidth = 10;
         ctx.beginPath();
-        ctx.moveTo(level[attack.i1][attack.j1].x, level[attack.i1][attack.j1].y);
-        ctx.lineTo(level[attack.i2][attack.j2].x, level[attack.i2][attack.j2].y);
+        ctx.moveTo(level[attack.i1][attack.j1].x*scale, level[attack.i1][attack.j1].y*scale);
+        ctx.lineTo(level[attack.i2][attack.j2].x*scale, level[attack.i2][attack.j2].y*scale);
         ctx.closePath();
         ctx.stroke();
     }
