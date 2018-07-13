@@ -7,6 +7,7 @@ var level = null;
 var mouseX = 0;
 var mouseY = 0;
 var selected;
+var setupLeft = 0;
 
 setInterval(draw);
 function draw(){
@@ -15,6 +16,12 @@ function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLevel();
     drawPlayers();
+    if(setupLeft > 0) drawSetupLeft();
+}
+
+function drawSetupLeft(){
+    ctx.fillStyle = "black";
+    ctx.fillText("Pieces left: " + setupLeft, 0.9*canvas.width*scale, 0.7*canvas.height*scale);
 }
 
 function drawPlayers(){
@@ -83,6 +90,7 @@ socket.on("state", function(data){
     index = data.index;
     level = data.level;
     players = data.players;
+    setupLeft = data.setupLeft;
     
     document.body.innerHTML = "";
     canvas = document.createElement("canvas");

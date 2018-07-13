@@ -18,6 +18,7 @@ io.on('connection', function(socket){
 });
 
 var phase = "lobby"; // lobby => setup => (attack => reinforce)
+var setupLeft = 0;
 var width = 10, height = 8, density = 0.5;
 var level;
 var players = [];
@@ -64,6 +65,7 @@ function checkEveryoneReady(){
     console.log("Yes");
     console.log("Number of players: " + players.length);
     phase = "setup";
+    setupLeft = 2*(density*width*height/players.length);
     level = [];
     for(var i = 0; i < height; ++i){
         level.push([]);
@@ -143,7 +145,8 @@ function sendState(){
         var data = {
             "index": i,
             "players": playerData,
-            "level": level
+            "level": level,
+            "setupLeft": setupLeft
         };
         players[i].socket.emit("state", data);
     }
