@@ -185,12 +185,16 @@ socket.on("state", function(data){
                 break;
             case "attack":
                 if(event.button == 0){
+                    if(level[selected.i][selected.j].playerIndex != index) return;
+                    if(level[selected.i][selected.j].n <= 1) return;
                     attack.i1 = selected.i;
                     attack.j1 = selected.j;
                     attack.i2 = null;
                     attack.j2 = null;
                 }
                 if(event.button == 2){
+                    if(level[selected.i][selected.j].playerIndex == index) return;
+                    if(Math.abs(selected.i-attack.i1) > 1 || Math.abs(selected.j-attack.j1) > 1 || Math.abs((selected.i+selected.j)-(attack.i1+attack.j1) > 1) return;
                     attack.i2 = selected.i;
                     attack.j2 = selected.j;
                 }
