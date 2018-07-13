@@ -117,7 +117,7 @@ socket.on("state", function(data){
     for(var i = 0; i < level.length; ++i){
         reinforce.push([]);
         for(var j = 0; j < level[i].length; ++j){
-            reinforce.push(0);
+            reinforce[i].push(0);
         }
     }
     reinforcement = Math.max(Math.floor(players[index].area/3), 3);
