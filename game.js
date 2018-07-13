@@ -10,6 +10,7 @@ var selected;
 var setupLeft = 0;
 
 setInterval(draw);
+
 function draw(){
     if(!ctx) return;
     calculateClosest();
@@ -102,11 +103,18 @@ socket.on("state", function(data){
         mouseY = event.clientY;
     };
     canvas.onmousedown = function(event){
-        if(event.button != 0) return;
-        socket.emit("select", {
-            "i": selected.i,
-            "j": selected.j
-        });
+        if(event.button == 0){
+            socket.emit("select1", {
+                "i": selected.i,
+                "j": selected.j
+            });
+        }
+        if(event.button == 2){
+            socket.emit("select2", {
+                "i": selected.i,
+                "j": selected.j
+            });
+        }
     };
     ctx = canvas.getContext("2d");
     ctx.font = "30px Arial";
