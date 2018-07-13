@@ -45,7 +45,7 @@ function drawPlayers(){
         ctx.fillStyle = players[i].color;
         ctx.fillRect(canvas.width-width-space,space+i*(height+space),width,height);
         if(i != index) continue;
-        ctx.fillStyle = "black";
+        ctx.strokeStyle = "black";
         ctx.lineWidth = 5;
         ctx.strokeRect(canvas.width-width-space,space+i*(height+space),width,height);
     }
@@ -58,6 +58,7 @@ function drawLevel(){
             if(level[i][j] == null) continue;
             ctx.lineWidth = 1;
             drawHexagon(level[i][j].x*scale, level[i][j].y*scale, scale, level[i][j].playerIndex != null ? players[level[i][j].playerIndex].color : null);
+            if(level[i][j].n == 0) continue;
             var text = level[i][j].n;
             if(phase == "reinforce" && level[i][j].playerIndex == index && reinforce[i][j] > 0){
                 text += " + " + reinforce[i][j];
