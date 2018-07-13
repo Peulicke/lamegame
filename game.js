@@ -178,10 +178,14 @@ socket.on("state", function(data){
                 break;
             case "attack":
                 if(event.button == 0){
-                    if(level[selected.i][selected.j].playerIndex != index) break;
-                    if(level[selected.i][selected.j].n <= 1) break;
-                    attack.i1 = selected.i;
-                    attack.j1 = selected.j;
+                    if(level[selected.i][selected.j].playerIndex != index || level[selected.i][selected.j].n <= 1){
+                        attack.i1 = null;
+                        attack.j1 = null;
+                    }
+                    else{
+                        attack.i1 = selected.i;
+                        attack.j1 = selected.j;
+                    }
                     attack.i2 = null;
                     attack.j2 = null;
                 }
