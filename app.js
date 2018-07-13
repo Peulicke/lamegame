@@ -160,7 +160,23 @@ function checkEveryoneAttack(){
         }
     }
     console.log("Yes");
-    // TODO
+    for(var i in players){
+        players[i].attack = level[players[i].i1][players[i].j1].n-1;
+        level[players[i].i1][players[i].j1].n = 1;
+    }
+    for(var i in players){
+        if(players[i].attack == level[players[i].i2][players[i].j2].n){
+            level[players[i].i2][players[i].j2].playerIndex = null;
+            level[players[i].i2][players[i].j2].n = 0;
+            continue;
+        }
+        if(players[i].attack < level[players[i].i2][players[i].j2].n){
+            level[players[i].i2][players[i].j2].n -= deadAfterFight(players[i].attack, level[players[i].i2][players[i].j2].n);
+            continue;
+        }
+        level[players[i].i2][players[i].j2].playerIndex = i;
+        level[players[i].i2][players[i].j2].n = players[i].attack-deadAfterFight(players[i].attack, level[players[i].i2][players[i].j2].n);
+    }
     for(var i in players){
         players[i].i1 = null;
         players[i].j1 = null;
@@ -169,6 +185,11 @@ function checkEveryoneAttack(){
     }
     phase = "reinforce";
     sendState();
+}
+
+function deadAfterFight(a, b){
+    if(a < b) return deadAfterFight(b, a);
+    return Math.ceil(b*b/a);
 }
 
 function checkEveryoneReinforce(){
