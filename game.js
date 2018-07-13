@@ -34,7 +34,7 @@ function drawSetupLeft(){
 function drawPhase(){
     ctx.fillStyle = "black";
     ctx.textAlign = "left";
-    ctx.fillText("Phase: " + phase + (phase == "reinforce") ? ", reinforcement: " + reinforcement : "", 0, 0.95*canvas.height);
+    ctx.fillText("Phase: " + phase + ((phase == "reinforce") ? ", reinforcement: " + reinforcement : ""), 0, 0.95*canvas.height);
 }
 
 function drawPlayers(){
