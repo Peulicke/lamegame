@@ -209,7 +209,7 @@ document.addEventListener('keydown', function(event){
     if(event.key != "Enter") return;
     switch(phase){
         case "attack":
-            if(attack.i1 == null || attack.j1 == null || attack.i2 == null || attack.j2 == null) return;
+            if(attack.i1 == null || attack.j1 == null || attack.i2 == null || attack.j2 == null) attack.i1 = attack.j1 = attack.i2 = attack.j2 = null;
             socket.emit("attack", attack);
             break;
         case "reinforce":

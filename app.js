@@ -162,26 +162,30 @@ function checkEveryoneAttack(){
     console.log("Yes");
     // Troops leave
     for(var i in players){
+        if(players[i].i1 == null || players[i].j1 == null || players[i].i2 == null || players[i].j2 == null){
+            players[i].attack = null;
+            continue;
+        }
         players[i].attack = level[players[i].i1][players[i].j1].n-1;
         level[players[i].i1][players[i].j1].n = 1;
     }
     // Troops meet at borders
     for(var i = 0; i < players.length; ++i){
-        if(players[i].attack == 0) continue;
+        if(players[i].attack == null) continue;
         for(var j = i+1; j < players.length; ++j){
-            if(players[j].attack == 0) continue;
+            if(players[j].attack == null) continue;
             if(players[i].i1 != players[j].i2 || players[i].j1 != players[j].j2 || players[i].i2 != players[j].i1 || players[i].j2 != players[j].j1) continue;
             if(players[i].attack == players[j].attack){
-                players[i].attack = players[j].attack = 0;
+                players[i].attack = players[j].attack = null;
                 break;
             }
             if(players[i].attack < players[j].attack){
                 players[j].attack -= deadAfterFight(players[i].attack, players[j].attack);
-                players[i].attack = 0;
+                players[i].attack = null;
                 break;
             }
             players[i].attack -= deadAfterFight(players[i].attack, players[j].attack);
-            players[j].attack = 0;
+            players[j].attack = null;
             break;
         }
     }
@@ -192,7 +196,7 @@ function checkEveryoneAttack(){
             var attackers = [];
             var sum = 0;
             for(var p in players){
-                if(players[p].i2 == i && players[p].j2 == j && players[p].attack > 0){
+                if(players[p].attack != null && players[p].i2 == i && players[p].j2 == j){
                     attackers.push(players[p]);
                     sum += players[p].attack;
                 }
@@ -201,14 +205,14 @@ function checkEveryoneAttack(){
                 level[i][j].playerIndex = null;
                 level[i][j].n = 0;
                 for(var p in attackers){
-                    attackers[p].attack = 0;
+                    attackers[p].attack = null;
                 }
                 continue;
             }
             if(level[i][j].n > sum){
                 level[i][j].n -= deadAfterFight(level[i][j].n, sum);
                 for(var p in attackers){
-                    attackers[p].attack = 0;
+                    attackers[p].attack = null;
                 }
                 continue;
             }
@@ -229,7 +233,7 @@ function checkEveryoneAttack(){
             level[i][j].n = 0;
             if(multipleMax){
                 for(var p in attackers){
-                    attackers[p].attack = 0;
+                    attackers[p].attack = null;
                 }
                 continue;
             }
@@ -238,14 +242,17 @@ function checkEveryoneAttack(){
             for(var p in attackers){
                 if(attackers[p] == maxAttacker) continue;
                 kills += attackers[p].attack*attackers[p].attack/maxAttacker.attack;
-                attackers[p].attack = 0;
+                attackers[p].attack = null;
             }
             maxAttacker.attack -= kills;
             maxAttacker.attack = Math.max(Math.floor(maxAttacker.attack), 0);
-            if(maxAttacker.attack == 0) continue;
+            if(maxAttacker.attack == 0){
+                maxAttacker.attack = null;
+                continue;
+            }
             level[i][j].playerIndex = maxAttacker.index;
             level[i][j].n = maxAttacker.attack;
-            maxAttacker.attack = 0;
+            maxAttacker.attack = null;
         }
     }
     for(var i in players){
