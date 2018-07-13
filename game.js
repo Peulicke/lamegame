@@ -73,10 +73,18 @@ function drawLevel(){
     ctx.lineWidth = 10;
     drawHexagon(selected.x*scale, selected.y*scale, scale, null);
     if(attack.i1 != null && attack.j1 != null){
-        ctx.strokeStyle = "gray";
+        ctx.strokeStyle = "black";
         ctx.lineWidth = 5;
         drawHexagon(level[attack.i1][attack.j1].x*scale, level[attack.i1][attack.j1].y*scale, scale, null);
+        ctx.strokeStyle = "gray";
+        ctx.lineWidth = 3;
+        drawHexagon(level[attack.i1][attack.j1].x*scale, level[attack.i1][attack.j1].y*scale, scale, null);
         if(attack.i2 != null && attack.j2 != null){
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 5;
+            drawHexagon(level[attack.i2][attack.j2].x*scale, level[attack.i2][attack.j2].y*scale, scale, null);
+            ctx.strokeStyle = "gray";
+            ctx.lineWidth = 3;
             drawHexagon(level[attack.i2][attack.j2].x*scale, level[attack.i2][attack.j2].y*scale, scale, null);
             ctx.strokeStyle = players[index].color;
             ctx.lineWidth = 10;
